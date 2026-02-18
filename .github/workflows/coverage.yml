@@ -1,4 +1,4 @@
-name: Test
+name: Coverage
 
 permissions: {}
 
@@ -15,8 +15,8 @@ env:
   FOUNDRY_PROFILE: ci
 
 jobs:
-  test:
-    name: Build & Test
+  coverage:
+    name: Code Coverage
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -29,11 +29,11 @@ jobs:
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
 
-      - name: Show Forge version
-        run: forge --version
+      - name: Run coverage
+        run: forge coverage --report lcov
 
-      - name: Build
-        run: forge build --sizes
-
-      - name: Test
-        run: forge test -vvv
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: lcov-report
+          path: lcov.info
