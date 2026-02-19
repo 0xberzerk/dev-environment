@@ -1,0 +1,27 @@
+{
+  "extends": "solhint:recommended",
+  "rules": {
+    "compiler-version": ["error", "0.8.30"],
+    "quotes": ["error", "single"],
+    "no-empty-blocks": "off",
+    "no-console": "off",
+    "ordering": "warn",
+
+    "import-path-check": "off",
+
+    "use-natspec": "off",
+
+    "reason-string": "off",
+    "gas-custom-errors": "off",
+
+    "no-inline-assembly": "warn",
+
+    "func-visibility": ["error", { "ignoreConstructors": true }],
+    "func-name-mixedcase": "off",
+
+    "gas-named-return-values": "off",
+
+    "foundry-test-function-naming": "warn",
+    "foundry-no-block-time-number": "error"
+  }
+}

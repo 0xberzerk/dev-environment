@@ -12,7 +12,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lint:
+  formatting:
     name: Formatting
     runs-on: ubuntu-latest
     permissions:
@@ -28,3 +28,25 @@ jobs:
 
       - name: Check formatting
         run: forge fmt --check
+
+  solhint:
+    name: Solhint
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+          submodules: recursive
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run solhint
+        run: yarn solhint 'src/**/*.sol' 'test/**/*.sol'

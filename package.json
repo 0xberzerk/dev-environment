@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "devDependencies": {
+    "@commitlint/cli": "20.4.2",
+    "@commitlint/config-conventional": "20.4.2",
+    "husky": "9.1.7",
+    "lint-staged": "16.2.7",
+    "solhint": "6.0.3"
+  },
+  "scripts": {
+    "prepare": "husky",
+    "lint": "solhint 'src/**/*.sol' 'test/**/*.sol'",
+    "lint:fix": "solhint 'src/**/*.sol' 'test/**/*.sol' --fix"
+  },
+  "lint-staged": {
+    "*.sol": [
+      "forge fmt --check",
+      "solhint"
+    ]
+  }
+}
