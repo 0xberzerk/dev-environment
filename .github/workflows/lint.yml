@@ -1,4 +1,4 @@
-name: Test
+name: Lint
 
 permissions: {}
 
@@ -11,12 +11,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  FOUNDRY_PROFILE: ci
-
 jobs:
-  test:
-    name: Build & Test
+  lint:
+    name: Formatting
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -29,11 +26,5 @@ jobs:
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
 
-      - name: Show Forge version
-        run: forge --version
-
-      - name: Build
-        run: forge build --sizes
-
-      - name: Test
-        run: forge test -vvv
+      - name: Check formatting
+        run: forge fmt --check
