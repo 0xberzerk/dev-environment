@@ -10,8 +10,27 @@ out/
 # Docs
 docs/
 
-# Dotenv file
+# Foundry artifacts
+lcov.info
+gas-snapshots/
+
+# Secrets and environment files
 .env
+.env.*
+!.env.example
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# JS tooling (solhint, etc.)
+node_modules/
 
 # Personal dev plan (not part of the template)
 .dev-plan.md
