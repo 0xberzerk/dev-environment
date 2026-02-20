@@ -1,9 +1,14 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.30;
 
-import { Counter } from '../src/Counter.sol';
 import { Script } from 'forge-std/Script.sol';
+import { Counter } from 'src/Counter.sol';
 
+/**
+ * @title CounterScript
+ * @notice Deployment script for the Counter contract.
+ * @author 0xBerzerk
+ */
 contract CounterScript is Script {
   Counter public counter;
 
