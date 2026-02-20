@@ -50,3 +50,23 @@ jobs:
 
       - name: Run solhint
         run: yarn solhint 'src/**/*.sol' 'test/**/*.sol'
+
+  bulloak:
+    name: Bulloak Check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+          submodules: recursive
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install bulloak
+        run: cargo install bulloak
+
+      - name: Check .tree ↔ .t.sol sync
+        run: bulloak check test/**/*.tree

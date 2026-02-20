@@ -5,7 +5,7 @@
     "quotes": ["error", "single"],
     "no-empty-blocks": "off",
     "no-console": "off",
-    "ordering": "warn",
+    "ordering": "off",
 
     "import-path-check": "off",
 
@@ -18,10 +18,12 @@
 
     "func-visibility": ["error", { "ignoreConstructors": true }],
     "func-name-mixedcase": "off",
+    "var-name-mixedcase": "off",
+    "immutable-vars-naming": "off",
 
     "gas-named-return-values": "off",
 
-    "foundry-test-function-naming": "warn",
+    "foundry-test-function-naming": "off",
     "foundry-no-block-time-number": "error"
   }
 }

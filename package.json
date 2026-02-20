@@ -10,7 +10,14 @@
   "scripts": {
     "prepare": "husky",
     "lint": "solhint 'src/**/*.sol' 'test/**/*.sol'",
-    "lint:fix": "solhint 'src/**/*.sol' 'test/**/*.sol' --fix"
+    "lint:fix": "solhint 'src/**/*.sol' 'test/**/*.sol' --fix",
+    "lint:all": "forge fmt --check && solhint 'src/**/*.sol' 'test/**/*.sol' && bulloak check test/**/*.tree",
+    "test": "forge test",
+    "test:unit": "forge test --match-path 'test/unit/**'",
+    "test:integration": "FOUNDRY_PROFILE=integration forge test --match-path 'test/integration/**'",
+    "test:invariant": "forge test --match-path 'test/invariant/**'",
+    "bulloak:check": "bulloak check test/**/*.tree",
+    "bulloak:scaffold": "bulloak scaffold -w test/**/*.tree"
   },
   "lint-staged": {
     "*.sol": [
