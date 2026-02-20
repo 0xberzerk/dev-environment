@@ -1,0 +1,5 @@
+IncrementUnitTest
+├── given the number is zero
+│   └── it should set number to one.
+└── given the number is not zero
+    └── it should increment by one.
