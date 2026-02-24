@@ -40,8 +40,8 @@ forge script script/Counter.s.sol --broadcast        # deploy (example)
 
 ```
 src/                          # Production contracts
-  interfaces/                 # Interfaces (strict NatSpec, wide pragma ^0.8.0)
-  libraries/                  # Libraries (strict NatSpec, wide pragma ^0.8.0)
+  interfaces/                 # Interfaces (strict NatSpec, pragma >=0.8.20 <0.9.0)
+  libraries/                  # Libraries (strict NatSpec, pragma >=0.8.20 <0.9.0)
 test/
   Base.t.sol                  # Global test base (actors, funding)
   unit/

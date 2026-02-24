@@ -2,7 +2,7 @@
 
 ## General
 
-- **Pragma:** `^0.8.30` for src contracts, `^0.8.0` for interfaces/libraries
+- **Pragma:** `0.8.30` (exact) for src contracts and scripts, `>=0.8.20 <0.9.0` for interfaces/libraries/tests
 - **Imports:** absolute paths only (`import { Counter } from 'src/Counter.sol';`)
 - **Section headers:** `/* //////////////////////////////////////////////// */` blocks
 - **Formatting:** 2-space indent, 120-char line, single quotes, sorted imports (see `foundry.toml [fmt]`)
