@@ -69,10 +69,8 @@ contract CounterInvariantTest is BaseTest {
   /**
    * @dev Log call distribution after each invariant run for debugging.
    */
-  function invariant_callSummary() public view {
-    // solhint-disable-next-line no-console
+  function afterInvariant() public view {
     console.log('setNumber calls:', handler.calls_setNumber());
-    // solhint-disable-next-line no-console
     console.log('increment calls:', handler.calls_increment());
   }
 }
