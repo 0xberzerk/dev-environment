@@ -2,7 +2,7 @@
 
 A production-grade Foundry template for Solidity smart contract development.
 
-This is **scaffolding, not a protocol**. The `Counter` contract exists only as a reference to demonstrate every pattern configured here. Fork it, delete Counter, and start building.
+This is **scaffolding, not a protocol**. The `Counter` contract exists only as a reference to demonstrate every pattern configured here. Click **"Use this template"** on GitHub to create your own repo, then delete Counter and start building.
 
 ## What's Included
 
@@ -15,25 +15,45 @@ This is **scaffolding, not a protocol**. The `Counter` contract exists only as a
 | **Git hooks** | Husky + lint-staged + commitlint | Catches issues locally before CI |
 | **AI tooling** | Claude Code plugin (skills, agents, hooks) | Automates reviews, test generation, and enforces guardrails |
 
-## Prerequisites
+## Getting Started
+
+### Prerequisites
 
 - [Foundry](https://book.getfoundry.sh/getting-started/installation) (forge, cast, anvil)
 - [Node.js](https://nodejs.org/) >= 18 (for solhint, husky, commitlint)
 - [bulloak](https://github.com/alexfertel/bulloak) (`cargo install bulloak`)
 
-## Quick Start
+### Create Your Repo
+
+1. Click **"Use this template"** > **"Create a new repository"** on GitHub
+2. Clone your new repo and install dependencies:
 
 ```bash
-# Clone and install
-git clone <your-fork-url> && cd <repo>
+git clone <your-repo-url> && cd <repo>
 git submodule update --init --recursive   # forge-std
 yarn install                               # solhint, husky, commitlint
+```
 
-# Verify everything works
+3. Verify the setup:
+
+```bash
 forge build
 forge test          # 7 tests (4 unit fuzzed, 3 invariant)
 yarn lint:all       # fmt + solhint + bulloak check
 ```
+
+### Clean Up the Example
+
+Delete the `Counter` reference files and start with your own contracts:
+
+- `src/Counter.sol`
+- `test/unit/Counter/`
+- `test/integration/Counter/`
+- `test/invariant/Counter.invariant.t.sol`
+- `test/invariant/handlers/CounterHandler.sol`
+- `script/Counter.s.sol`
+
+Keep `test/Base.t.sol` — it provides the shared actor setup for all test tiers.
 
 ## Project Structure
 
