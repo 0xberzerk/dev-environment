@@ -49,7 +49,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Run solhint
-        run: yarn solhint 'src/**/*.sol' 'test/**/*.sol'
+        run: yarn lint
 
   bulloak:
     name: Bulloak Check
