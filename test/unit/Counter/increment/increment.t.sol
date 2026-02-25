@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.20 <0.9.0;
 
+import { ICounter } from 'src/interfaces/ICounter.sol';
 import { CounterUnitTest } from 'test/unit/Counter/Counter.t.sol';
 
 /**
@@ -10,7 +11,7 @@ import { CounterUnitTest } from 'test/unit/Counter/Counter.t.sol';
  */
 contract IncrementUnitTest is CounterUnitTest {
   modifier givenTheNumberIsZero() {
-    assertEq(counter.number(), 0);
+    assertEq(counter.getNumber(), 0);
     _;
   }
 
@@ -22,14 +23,20 @@ contract IncrementUnitTest is CounterUnitTest {
 
   function test_GivenTheNumberIsZero() external givenTheNumberIsZero {
     // it should set number to one.
+    // it should emit an Incremented event.
+    vm.expectEmit(address(counter));
+    emit ICounter.Incremented(1);
     counter.increment();
-    assertEq(counter.number(), 1);
+    assertEq(counter.getNumber(), 1);
   }
 
   function test_GivenTheNumberIsNotZero(uint256 _startingNumber) external givenTheNumberIsNotZero(_startingNumber) {
     // it should increment by one.
-    uint256 numberBefore = counter.number();
+    // it should emit an Incremented event.
+    uint256 numberBefore = counter.getNumber();
+    vm.expectEmit(address(counter));
+    emit ICounter.Incremented(numberBefore + 1);
     counter.increment();
-    assertEq(counter.number(), numberBefore + 1);
+    assertEq(counter.getNumber(), numberBefore + 1);
   }
 }

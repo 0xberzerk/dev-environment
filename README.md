@@ -47,6 +47,7 @@ yarn lint:all       # fmt + solhint + bulloak check
 Delete the `Counter` reference files and start with your own contracts:
 
 - `src/Counter.sol`
+- `src/interfaces/ICounter.sol`
 - `test/unit/Counter/`
 - `test/integration/Counter/`
 - `test/invariant/CounterInvariant.t.sol`
@@ -136,7 +137,7 @@ Every function gets a `.tree` file defining all execution branches **before** wr
 ```
 SetNumberUnitTest
 ├── when the new number exceeds uint128 max
-│   └── it should revert with Counter__NumberTooLarge.
+│   └── it should revert with Counter_NumberTooLarge.
 └── when the new number is within bounds
     ├── it should store the number.
     └── it should emit a NumberSet event.
@@ -200,7 +201,7 @@ In your GitHub repo settings under **Branches > Branch protection rules** for `m
 
 Format: `type(scope): description` — enforced by commitlint via `commit-msg` hook.
 
-Allowed types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`, `setup`
+Allowed types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`, `setup`, `hotfix`
 
 ### Branches
 

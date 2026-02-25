@@ -21,13 +21,13 @@ contract SetThenIncrementIntegrationTest is CounterIntegrationTest {
   ) external givenTheInitialNumberIsSetViaSetNumber(_initialNumber) {
     // it should reflect both operations.
     // it should maintain correct accumulated state.
-    uint256 numberAfterSet = counter.number();
+    uint256 numberAfterSet = counter.getNumber();
     _incrementCount = uint8(bound(_incrementCount, 1, type(uint8).max));
 
     for (uint256 i = 0; i < _incrementCount; ++i) {
       counter.increment();
     }
 
-    assertEq(counter.number(), numberAfterSet + _incrementCount);
+    assertEq(counter.getNumber(), numberAfterSet + _incrementCount);
   }
 }
