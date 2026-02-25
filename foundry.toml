@@ -13,9 +13,18 @@ optimizer_runs = 200
 gas_reports = ["*"]
 verbosity = 3
 
+fuzz = { runs = 5_000 }
+
+# Skip integration (fork) tests in local runs for speed.
+# Run them explicitly: FOUNDRY_PROFILE=integration forge test --match-path 'test/integration/**'
+no_match_path = "test/integration/**"
+
 [profile.ci]
 verbosity = 3
-fuzz = { runs = 1000 }
+fuzz = { runs = 10_000 }
+
+[profile.integration]
+fuzz = { runs = 1_000 }
 
 [fmt]
 tab_width = 2
