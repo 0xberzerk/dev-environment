@@ -1,7 +1,7 @@
 {
   "extends": "solhint:recommended",
   "rules": {
-    "compiler-version": ["error", "0.8.30"],
+    "compiler-version": ["error", ">=0.8.20 <0.9.0"],
     "quotes": ["error", "single"],
     "no-empty-blocks": "off",
     "no-console": "off",

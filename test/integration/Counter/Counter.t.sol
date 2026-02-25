@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.30;
+pragma solidity >=0.8.20 <0.9.0;
 
 import { CounterScript } from 'script/Counter.s.sol';
 import { Counter } from 'src/Counter.sol';
