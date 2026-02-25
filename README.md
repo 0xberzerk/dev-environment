@@ -49,7 +49,7 @@ Delete the `Counter` reference files and start with your own contracts:
 - `src/Counter.sol`
 - `test/unit/Counter/`
 - `test/integration/Counter/`
-- `test/invariant/Counter.invariant.t.sol`
+- `test/invariant/CounterInvariant.t.sol`
 - `test/invariant/handlers/CounterHandler.sol`
 - `script/Counter.s.sol`
 
@@ -75,7 +75,7 @@ test/
       <scenario>.t.sol
   invariant/
     handlers/<Contract>Handler.sol  # Bounded actions, ghost vars, call counters
-    <Contract>.invariant.t.sol      # Invariant assertions
+    <Contract>Invariant.t.sol        # Invariant assertions
 script/                           # Deployment scripts
 .claude/
   rules/                          # AI convention rules (style, testing, guardrails)
