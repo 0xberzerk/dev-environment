@@ -125,6 +125,8 @@ forge script script/Counter.s.sol --broadcast      # deploy (example)
 
 **Why three tiers?** Unit tests are fast and isolated but miss deployment issues. Integration tests catch real-world interactions but are slow and flaky. Invariant tests find state-dependent bugs that neither tier covers alone.
 
+> **Note:** Integration tests require a `FORK_RPC_URL` environment variable pointing to an RPC endpoint (e.g. Alchemy, Infura). When unset, the fork is not created but the tests still execute against a blank local chain — they will not automatically skip. Set the variable in a `.env` file or pass it inline.
+
 ### BTT (Branching Tree Technique)
 
 Every function gets a `.tree` file defining all execution branches **before** writing tests:
