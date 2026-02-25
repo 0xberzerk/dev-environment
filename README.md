@@ -117,13 +117,15 @@ forge script script/Counter.s.sol --broadcast      # deploy (example)
 
 ### Three Tiers
 
-| Tier | Deploys via | Fuzz runs | External deps | Purpose |
-|------|-------------|-----------|---------------|---------|
-| **Unit** | `new Contract()` | 5,000 | mocked (`vm.mockCall`) | Isolated function logic |
-| **Integration** | production deploy script | 1,000 | real (forked chain) | End-to-end on mainnet state |
-| **Invariant** | handler wrapping target | 5,000 | direct | Protocol-wide properties hold under random sequences |
+| Tier | Deploys via | Runs | External deps | Purpose |
+|------|-------------|------|---------------|---------|
+| **Unit** | `new Contract()` | 5,000 fuzz | mocked (`vm.mockCall`) | Isolated function logic |
+| **Integration** | production deploy script | 1,000 fuzz | real (forked chain) | End-to-end on mainnet state |
+| **Invariant** | handler wrapping target | 256 runs × 100 depth | direct | Protocol-wide properties hold under random sequences |
 
 **Why three tiers?** Unit tests are fast and isolated but miss deployment issues. Integration tests catch real-world interactions but are slow and flaky. Invariant tests find state-dependent bugs that neither tier covers alone.
+
+> **Invariant tuning:** The default `runs = 256, depth = 100` is kept moderate for fast local iteration. CI bumps to `512 × 200`. For real protocols, consider increasing to `runs = 1000+, depth = 500+` in `foundry.toml`.
 
 > **Note:** Integration tests require a `FORK_RPC_URL` environment variable pointing to an RPC endpoint (e.g. Alchemy, Infura). When unset, the fork is not created but the tests still execute against a blank local chain — they will not automatically skip. Set the variable in a `.env` file or pass it inline.
 
