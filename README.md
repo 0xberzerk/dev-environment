@@ -2,7 +2,7 @@
 
 A production-grade Foundry template for Solidity smart contract development.
 
-This is **scaffolding, not a protocol**. The `Counter` contract exists only as a reference to demonstrate every pattern configured here. Fork it, delete Counter, and start building.
+This is **scaffolding, not a protocol**. The `Counter` contract exists only as a reference to demonstrate every pattern configured here. Click **"Use this template"** on GitHub to create your own repo, then delete Counter and start building.
 
 ## What's Included
 
@@ -15,25 +15,46 @@ This is **scaffolding, not a protocol**. The `Counter` contract exists only as a
 | **Git hooks** | Husky + lint-staged + commitlint | Catches issues locally before CI |
 | **AI tooling** | Claude Code plugin (skills, agents, hooks) | Automates reviews, test generation, and enforces guardrails |
 
-## Prerequisites
+## Getting Started
+
+### Prerequisites
 
 - [Foundry](https://book.getfoundry.sh/getting-started/installation) (forge, cast, anvil)
 - [Node.js](https://nodejs.org/) >= 18 (for solhint, husky, commitlint)
 - [bulloak](https://github.com/alexfertel/bulloak) (`cargo install bulloak`)
 
-## Quick Start
+### Create Your Repo
+
+1. Click **"Use this template"** > **"Create a new repository"** on GitHub
+2. Clone your new repo and install dependencies:
 
 ```bash
-# Clone and install
-git clone <your-fork-url> && cd <repo>
+git clone <your-repo-url> && cd <repo>
 git submodule update --init --recursive   # forge-std
 yarn install                               # solhint, husky, commitlint
+```
 
-# Verify everything works
+3. Verify the setup:
+
+```bash
 forge build
 forge test          # 7 tests (4 unit fuzzed, 3 invariant)
 yarn lint:all       # fmt + solhint + bulloak check
 ```
+
+### Clean Up the Example
+
+Delete the `Counter` reference files and start with your own contracts:
+
+- `src/Counter.sol`
+- `src/interfaces/ICounter.sol`
+- `test/unit/Counter/`
+- `test/integration/Counter/`
+- `test/invariant/CounterInvariant.t.sol`
+- `test/invariant/handlers/CounterHandler.sol`
+- `script/Counter.s.sol`
+
+Keep `test/Base.t.sol` — it provides the shared actor setup for all test tiers.
 
 ## Project Structure
 
@@ -55,7 +76,7 @@ test/
       <scenario>.t.sol
   invariant/
     handlers/<Contract>Handler.sol  # Bounded actions, ghost vars, call counters
-    <Contract>.invariant.t.sol      # Invariant assertions
+    <Contract>Invariant.t.sol        # Invariant assertions
 script/                           # Deployment scripts
 .claude/
   rules/                          # AI convention rules (style, testing, guardrails)
@@ -97,13 +118,17 @@ forge script script/Counter.s.sol --broadcast      # deploy (example)
 
 ### Three Tiers
 
-| Tier | Deploys via | Fuzz runs | External deps | Purpose |
-|------|-------------|-----------|---------------|---------|
-| **Unit** | `new Contract()` | 5,000 | mocked (`vm.mockCall`) | Isolated function logic |
-| **Integration** | production deploy script | 1,000 | real (forked chain) | End-to-end on mainnet state |
-| **Invariant** | handler wrapping target | 5,000 | direct | Protocol-wide properties hold under random sequences |
+| Tier | Deploys via | Runs | External deps | Purpose |
+|------|-------------|------|---------------|---------|
+| **Unit** | `new Contract()` | 5,000 fuzz | mocked (`vm.mockCall`) | Isolated function logic |
+| **Integration** | production deploy script | 1,000 fuzz | real (forked chain) | End-to-end on mainnet state |
+| **Invariant** | handler wrapping target | 256 runs × 100 depth | direct | Protocol-wide properties hold under random sequences |
 
 **Why three tiers?** Unit tests are fast and isolated but miss deployment issues. Integration tests catch real-world interactions but are slow and flaky. Invariant tests find state-dependent bugs that neither tier covers alone.
+
+> **Invariant tuning:** The default `runs = 256, depth = 100` is kept moderate for fast local iteration. CI bumps to `512 × 200`. For real protocols, consider increasing to `runs = 1000+, depth = 500+` in `foundry.toml`.
+
+> **Note:** Integration tests require a `FORK_RPC_URL` environment variable pointing to an RPC endpoint (e.g. Alchemy, Infura). When unset, the fork is not created but the tests still execute against a blank local chain — they will not automatically skip. Set the variable in a `.env` file or pass it inline.
 
 ### BTT (Branching Tree Technique)
 
@@ -112,7 +137,7 @@ Every function gets a `.tree` file defining all execution branches **before** wr
 ```
 SetNumberUnitTest
 ├── when the new number exceeds uint128 max
-│   └── it should revert with Counter__NumberTooLarge.
+│   └── it should revert with Counter_NumberTooLarge.
 └── when the new number is within bounds
     ├── it should store the number.
     └── it should emit a NumberSet event.
@@ -157,10 +182,18 @@ Four GitHub Actions workflows run on every push and PR:
 |----------|-------------|
 | **test.yml** | `forge build --sizes` + `forge test` (CI profile, 10k fuzz runs) |
 | **lint.yml** | `forge fmt --check` + `solhint` + `bulloak check` |
-| **coverage.yml** | `forge coverage --report lcov`, uploads artifact |
+| **coverage.yml** | `forge coverage --report lcov`, enforces 90% minimum line coverage |
 | **slither.yml** | Slither static analysis, fails on high-severity findings |
 
 All workflows use concurrency groups to cancel stale runs.
+
+### Recommended Branch Protection
+
+In your GitHub repo settings under **Branches > Branch protection rules** for `main`:
+
+- **Require status checks to pass:** `Build & Test`, `Formatting`, `Solhint`, `Bulloak Check`, `Code Coverage`, `Static Analysis`
+- **Require branches to be up to date before merging**
+- **Require pull request reviews before merging** (at least 1 approval)
 
 ## Git Conventions
 
@@ -168,7 +201,7 @@ All workflows use concurrency groups to cancel stale runs.
 
 Format: `type(scope): description` — enforced by commitlint via `commit-msg` hook.
 
-Allowed types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`, `setup`
+Allowed types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`, `setup`, `hotfix`
 
 ### Branches
 

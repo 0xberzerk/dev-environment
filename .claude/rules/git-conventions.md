@@ -4,7 +4,7 @@
 
 Format: `type(scope): description` (scope optional)
 
-Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`, `setup`
+Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`, `setup`, `hotfix`
 
 Enforced by commitlint via `commit-msg` hook.
 

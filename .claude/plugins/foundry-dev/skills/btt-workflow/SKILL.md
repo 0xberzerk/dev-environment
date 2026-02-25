@@ -50,7 +50,7 @@ Tree format — the root node is the test contract name (`<Function>UnitTest`):
 ```
 SetNumberUnitTest
 ├── when the new number exceeds uint128 max
-│   └── it should revert with Counter__NumberTooLarge.
+│   └── it should revert with Counter_NumberTooLarge.
 └── when the new number is within bounds
     ├── it should store the number.
     └── it should emit a NumberSet event.

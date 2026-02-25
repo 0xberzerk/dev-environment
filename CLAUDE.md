@@ -59,7 +59,7 @@ test/
   invariant/
     handlers/
       <Contract>Handler.sol   # Handler (bounded actions, ghost vars)
-    <Contract>.invariant.t.sol # Invariant assertions
+    <Contract>Invariant.t.sol # Invariant assertions
 script/                       # Deployment scripts
 ```
 

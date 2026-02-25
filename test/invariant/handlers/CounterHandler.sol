@@ -30,7 +30,7 @@ contract CounterHandler is CommonBase, StdCheats, StdUtils {
   Counter public immutable counter;
 
   /**
-   * @notice Ghost variable tracking the expected value of counter.number().
+   * @notice Ghost variable tracking the expected value of counter.getNumber().
    */
   uint256 public ghost_number;
 
@@ -71,7 +71,7 @@ contract CounterHandler is CommonBase, StdCheats, StdUtils {
    */
   function increment() external {
     // Skip if incrementing would push number beyond what setNumber accepts
-    if (counter.number() > type(uint128).max - 1) return;
+    if (counter.getNumber() > type(uint128).max - 1) return;
 
     counter.increment();
 

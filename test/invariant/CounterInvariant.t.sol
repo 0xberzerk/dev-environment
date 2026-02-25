@@ -55,7 +55,7 @@ contract CounterInvariantTest is BaseTest {
    *         setNumber reverts on larger values and increment is guarded.
    */
   function invariant_numberNeverExceedsUint128Max() public view {
-    assertLe(counter.number(), type(uint128).max);
+    assertLe(counter.getNumber(), type(uint128).max);
   }
 
   /**
@@ -63,16 +63,14 @@ contract CounterInvariantTest is BaseTest {
    *         This catches any desync between expected and actual behavior.
    */
   function invariant_numberMatchesGhost() public view {
-    assertEq(counter.number(), handler.ghost_number());
+    assertEq(counter.getNumber(), handler.ghost_number());
   }
 
   /**
    * @dev Log call distribution after each invariant run for debugging.
    */
-  function invariant_callSummary() public view {
-    // solhint-disable-next-line no-console
+  function afterInvariant() public view {
     console.log('setNumber calls:', handler.calls_setNumber());
-    // solhint-disable-next-line no-console
     console.log('increment calls:', handler.calls_increment());
   }
 }

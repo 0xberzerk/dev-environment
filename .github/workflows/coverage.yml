@@ -21,7 +21,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v4
         with:
           persist-credentials: false
           submodules: recursive
@@ -37,3 +37,12 @@ jobs:
         with:
           name: lcov-report
           path: lcov.info
+
+      - name: Enforce minimum coverage (90%)
+        run: |
+          COVERAGE=$(lcov --summary lcov.info 2>&1 | grep 'lines' | sed 's/.*: //' | sed 's/%.*//')
+          echo "Line coverage: ${COVERAGE}%"
+          if [ "$(echo "$COVERAGE < 90" | bc -l)" -eq 1 ]; then
+            echo "::error::Coverage ${COVERAGE}% is below the 90% minimum"
+            exit 1
+          fi
