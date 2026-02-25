@@ -181,10 +181,18 @@ Four GitHub Actions workflows run on every push and PR:
 |----------|-------------|
 | **test.yml** | `forge build --sizes` + `forge test` (CI profile, 10k fuzz runs) |
 | **lint.yml** | `forge fmt --check` + `solhint` + `bulloak check` |
-| **coverage.yml** | `forge coverage --report lcov`, uploads artifact |
+| **coverage.yml** | `forge coverage --report lcov`, enforces 90% minimum line coverage |
 | **slither.yml** | Slither static analysis, fails on high-severity findings |
 
 All workflows use concurrency groups to cancel stale runs.
+
+### Recommended Branch Protection
+
+In your GitHub repo settings under **Branches > Branch protection rules** for `main`:
+
+- **Require status checks to pass:** `Build & Test`, `Formatting`, `Solhint`, `Bulloak Check`, `Code Coverage`, `Static Analysis`
+- **Require branches to be up to date before merging**
+- **Require pull request reviews before merging** (at least 1 approval)
 
 ## Git Conventions
 
