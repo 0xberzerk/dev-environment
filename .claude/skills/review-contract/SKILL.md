@@ -5,7 +5,7 @@ description: |
   gas patterns, security, and style. Use when checking code quality or reviewing
   contracts before merging.
 user-invocable: true
-disable-model-invocation: false
+disable-model-invocation: true
 argument-hint: "[path/to/Contract.sol]"
 ---
 
