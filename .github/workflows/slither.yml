@@ -4,7 +4,6 @@ permissions: {}
 
 on:
   push:
-  pull_request:
   workflow_dispatch:
 
 concurrency:
@@ -26,5 +25,7 @@ jobs:
       - name: Run Slither
         uses: crytic/slither-action@v0.4.2
         with:
+          solc-version: '0.8.30'
+          node-version: '22'
           fail-on: high
           slither-args: --exclude-dependencies --filter-paths "./lib|./test"
