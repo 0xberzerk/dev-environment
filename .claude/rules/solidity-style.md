@@ -36,6 +36,7 @@ Within each group, place `view`/`pure` functions after state-changing ones.
 | Interface | `I` prefix | `ICounter` |
 | Library | `Lib` prefix | `LibCounter` |
 | State variables | `s_` prefix | `s_counter` |
+| Immutable variables | `i_` prefix | `i_counter` |
 | Function | camelCase | `setNumber()`, `increment()` |
 | Parameter | `_` prefix | `_newNumber`, `_amount` |
 | Return value | `_` suffix | `result_`, `balance_` |
@@ -44,6 +45,12 @@ Within each group, place `view`/`pure` functions after state-changing ones.
 | Modifier (test) | `givenCondition` / `whenCondition` | `givenTheNumberIsZero` |
 | Ghost variable | `ghost_` prefix | `ghost_number` |
 | Call counter | `calls_` prefix | `calls_setNumber` |
+
+## Variable Visibility (src/ contracts only)
+
+- All state and immutable variables must be `internal` — never `public`
+- Expose values via custom getter functions with the `get` prefix (e.g., `getNumber()`, `getCounterAddress()`)
+- This rule does not apply to test files, scripts, or handlers
 
 ## Solhint Tiers
 

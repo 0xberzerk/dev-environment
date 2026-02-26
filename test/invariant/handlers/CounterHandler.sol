@@ -27,7 +27,7 @@ contract CounterHandler is CommonBase, StdCheats, StdUtils {
                         State
   ////////////////////////////////////////////////*/
 
-  Counter public immutable counter;
+  Counter public immutable i_counter;
 
   /**
    * @notice Ghost variable tracking the expected value of counter.getNumber().
@@ -45,7 +45,7 @@ contract CounterHandler is CommonBase, StdCheats, StdUtils {
   ////////////////////////////////////////////////*/
 
   constructor(Counter _counter) {
-    counter = _counter;
+    i_counter = _counter;
   }
 
   /* ////////////////////////////////////////////////
@@ -59,7 +59,7 @@ contract CounterHandler is CommonBase, StdCheats, StdUtils {
   function setNumber(uint256 _newNumber) external {
     _newNumber = bound(_newNumber, 0, type(uint128).max);
 
-    counter.setNumber(_newNumber);
+    i_counter.setNumber(_newNumber);
 
     ghost_number = _newNumber;
     ++calls_setNumber;
@@ -71,9 +71,9 @@ contract CounterHandler is CommonBase, StdCheats, StdUtils {
    */
   function increment() external {
     // Skip if incrementing would push number beyond what setNumber accepts
-    if (counter.getNumber() > type(uint128).max - 1) return;
+    if (i_counter.getNumber() > type(uint128).max - 1) return;
 
-    counter.increment();
+    i_counter.increment();
 
     ++ghost_number;
     ++calls_increment;
