@@ -6,7 +6,6 @@
     "name": "0xBerzerk"
   },
   "keywords": ["foundry", "solidity", "testing", "btt", "solhint"],
-  "skills": "./skills/",
   "agents": "./agents/",
   "hooks": "./hooks/hooks.json"
 }
